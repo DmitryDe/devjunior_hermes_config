@@ -4,15 +4,189 @@ model:
   default: tencent/hy3
 agent:
   max_turns: 150
+  gateway_timeout: 3600
+  build_wait_timeout: 600
+  api_max_retries: 2
+  tool_use_enforcement: auto
+  intent_ack_continuation: auto
+  task_completion_guidance: true
+  parallel_tool_call_guidance: true
+  coding_context: focus
+  coding_instructions: 'Primary stack .NET. Own Kaneo tasks where assignee is
+    devJunior. Tasks marked action: delegate to Cursor CLI (cursor agent, --model
+    auto) — do not implement non-trivial code yourself.
+    '
+  verify_guidance: true
+  max_verify_nudges: 3
+  verify_on_stop: true
+  gateway_timeout_warning: 1800
+  clarify_timeout: 7200
+  gateway_notify_interval: 300
+  image_input_mode: auto
+  disabled_toolsets: []
+  verbose: false
+  personalities:
+    devJunior: 'You are devJunior — developer agent at AIDeskLab. Primary stack
+      .NET; other languages as repos require. Execution agent: take Kaneo tasks
+      assigned to you (devJunior). action-marked tasks go to Cursor CLI; others
+      you do yourself. Dual workspaces: AIDeskLab / AIDesk.dev. After work:
+      verify and update Kaneo. Russian by default; keep English technical terms
+      as-is. Be brief, fact-based; never fabricate.
+
+      '
+terminal:
+  backend: local
+  cwd: .
+  timeout: 300
+  home_mode: auto
+  auto_source_bashrc: true
+  persistent_shell: true
 web:
   backend: firecrawl
   use_gateway: true
+browser:
+  inactivity_timeout: 120
+  command_timeout: 30
+  record_sessions: false
+  headed: false
+  allow_private_urls: false
+  engine: auto
+checkpoints:
+  enabled: true
+  max_snapshots: 30
+  max_total_size_mb: 500
+  max_file_size_mb: 10
+  auto_prune: true
+  retention_days: 7
+  min_interval_hours: 12
+file_read_max_chars: 150000
+mcp:
+  auto_reload_on_config_change: true
+tool_output:
+  max_bytes: 80000
+  max_lines: 2000
+  max_line_length: 2000
+tool_loop_guardrails:
+  warnings_enabled: true
+  hard_stop_enabled: true
+  warn_after:
+    exact_failure: 2
+    same_tool_failure: 2
+    idempotent_no_progress: 2
+  hard_stop_after:
+    exact_failure: 4
+    same_tool_failure: 5
+    idempotent_no_progress: 4
+  loop_caps:
+    max_web_searches: 50
+    max_subagents: 10
+compression:
+  enabled: true
+  threshold: 0.5
+  target_ratio: 0.2
+  protect_last_n: 25
+  max_attempts: 4
+  proactive_prune_tokens: 48000
+  proactive_prune_min_result_chars: 8000
+  proactive_prune_min_reclaim_tokens: 2048
+  protect_first_n: 2
+  in_place: true
+  idle_compact_after_seconds: 1800
+auxiliary:
+  transient_retries: 2
+  free_only: false
+  title_generation:
+    enabled: true
+    provider: auto
+    model: ''
+    timeout: 30
+    language: ru
 display:
   tool_progress: all
-stt:
-  provider: openai
+  compact: false
+  personality: devJunior
+  interface: cli
+  bell_on_complete: true
+  show_reasoning: true
+  reasoning_full: false
+  streaming: true
+  timestamps: true
+  timestamp_format: '%H:%M'
+  inline_diffs: true
+  file_mutation_verifier: true
+  language: ru
+  interim_assistant_messages: true
+  friendly_tool_labels: true
+  turn_summary: true
+  tool_progress_grouping: accumulate
+  reasoning_style: code
+privacy:
+  redact_pii: false
+context:
+  engine: compressor
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  write_approval: false
+  memory_char_limit: 2200
+  user_char_limit: 1375
+delegation:
+  inherit_mcp_toolsets: true
+  max_iterations: 50
+  max_summary_chars: 24000
+  max_concurrent_children: 2
+  max_spawn_depth: 1
+  orchestrator_enabled: false
+  subagent_auto_approve: false
 computer_use:
   backend: cua
+approvals:
+  mode: smart
+  timeout: 300
+  cron_mode: deny
+  denial_breaker_threshold: 2
+  deny:
+    - git push --force*
+    - '*rm -rf /*'
+    - '*docker*prune*'
+command_allowlist: []
+hooks_auto_accept: false
+security:
+  allow_private_urls: false
+  redact_secrets: true
+  tirith_enabled: true
+  tirith_path: tirith
+  tirith_timeout: 5
+  tirith_fail_open: true
+  allow_lazy_installs: true
+code_execution:
+  mode: project
+tools:
+  tool_search:
+    enabled: auto
+    threshold_pct: 5
+    search_default_limit: 5
+    max_search_limit: 20
+    listing: auto
+    listing_max_tokens: 20000
+logging:
+  level: INFO
+  max_size_mb: 10
+  backup_count: 5
+sessions:
+  auto_prune: true
+  retention_days: 30
+  auto_archive: true
+  auto_archive_days: 7
+  vacuum_after_prune: true
+  min_vacuum_interval_days: 14
+  min_interval_hours: 12
+lsp:
+  enabled: true
+  wait_mode: document
+  wait_timeout: 10.0
+  install_strategy: auto
+  idle_timeout: 1200.0
 _config_version: 37
 session_reset:
   mode: none
@@ -114,3 +288,17 @@ known_builtin_toolsets:
 onboarding:
   seen:
     profile_build_offered: true
+skills:
+  external_dirs:
+    - /opt/aidesklab/agent-skills
+  template_vars: true
+  inline_shell: false
+  inline_shell_timeout: 10
+  guard_agent_created: false
+  write_approval: false
+mcp_servers:
+  kaneo:
+    url: https://planed.aidesklab.ru/api/mcp
+    headers:
+      Authorization: Bearer ${MCP_KANEO_API_KEY}
+    enabled: true
