@@ -1,0 +1,116 @@
+model:
+  provider: nous
+  base_url: https://inference-api.nousresearch.com/v1
+  default: tencent/hy3
+agent:
+  max_turns: 150
+web:
+  backend: firecrawl
+  use_gateway: true
+display:
+  tool_progress: all
+stt:
+  provider: openai
+computer_use:
+  backend: cua
+_config_version: 37
+session_reset:
+  mode: none
+platform_toolsets:
+  cli:
+    - a2a
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - web
+  telegram:
+    - a2a
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - web
+known_plugin_toolsets:
+  cli:
+    - a2a
+    - spotify
+  telegram:
+    - a2a
+    - spotify
+known_builtin_toolsets:
+  cli:
+    - bfl
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+  telegram:
+    - bfl
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+onboarding:
+  seen:
+    profile_build_offered: true

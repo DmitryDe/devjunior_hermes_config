@@ -1,0 +1,86 @@
+# Секреты (никогда в репо)
+.env
+auth.json
+*.key
+*.pem
+shared/nous_auth.json
+
+# Базы данных и лок-файлы
+*.db
+*.db-*
+*.wal
+*.shm
+*.lock
+*.pid
+state.db
+state.db-*
+gateway_state.json
+gateway.pid
+channel_directory.json
+kanban.db*
+cron/ticker_*
+
+# Кэши и временные файлы
+cache/
+*.cache
+*.tmp
+*.bak
+*.bak*
+*.log
+logs/
+sessions/
+sessions.json
+.update_check
+# Кэши моделей/провайдеров (runtime, не в репо)
+ollama_cloud_models_cache.json
+provider_models_cache.json
+*.models_cache.json
+.clean_shutdown
+.restart_last_processed.json
+# Состояние/сборочные артефакты агента (runtime, не в репо)
+state-snapshots/
+.npm_lock_hash*
+web-ui-build-stamp.json
+# Служебные бэкапы config.yaml (ручные копии, не в репо)
+config.yaml.fixed.*
+config.yaml.kaneofix.*
+config.yaml.corrupt.*
+context_length_cache.yaml
+models_dev_cache.json
+.skills_prompt_snapshot.json
+.curator_state
+.bundled_manifest
+skills/.usage.json
+
+# Бинарные зависимости и встроенные библиотеки
+bin/
+node/
+shared/
+hermes-agent/
+
+# LSP-зависимости (ставятся через npm install в lsp/, не коммитятся)
+lsp/node_modules/
+lsp/package-lock.json
+
+# Автоматические cron-файлы (если не редактируете их вручную)
+cron/
+
+# Файлы состояния
+auth.lock
+*.init.lock
+*.dispatch.lock
+
+# Редакторы и IDE
+.vscode/
+.idea/
+
+# Скрипты и другие файлы
+scripts/approval-workflow/config.ps1
+skills/.usage.json
+
+# Состояние среды и телеметрия (генерируется локально, не в репо)
+processes.json
+state/
+.env.save
+skills/.curator_backups/
+skills/git/
