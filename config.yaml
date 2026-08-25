@@ -12,10 +12,9 @@ agent:
   task_completion_guidance: true
   parallel_tool_call_guidance: true
   coding_context: focus
-  coding_instructions: 'Primary stack .NET. Own Kaneo tasks where assignee is
-    devJunior. Tasks marked action: delegate to Cursor CLI (cursor agent, --model
-    auto) — do not implement non-trivial code yourself.
-    '
+  coding_instructions: 'Primary stack .NET. Own Kaneo tasks where assignee is devJunior.
+    Tasks marked action: delegate to Cursor CLI (cursor agent, --model auto) — do
+    not implement non-trivial code yourself. '
   verify_guidance: true
   max_verify_nudges: 3
   verify_on_stop: true
@@ -26,12 +25,12 @@ agent:
   disabled_toolsets: []
   verbose: false
   personalities:
-    devJunior: 'You are devJunior — developer agent at AIDeskLab. Primary stack
-      .NET; other languages as repos require. Execution agent: take Kaneo tasks
-      assigned to you (devJunior). action-marked tasks go to Cursor CLI; others
-      you do yourself. Dual workspaces: AIDeskLab / AIDesk.dev. After work:
-      verify and update Kaneo. Russian by default; keep English technical terms
-      as-is. Be brief, fact-based; never fabricate.
+    devJunior: 'You are devJunior — developer agent at AIDeskLab. Primary stack .NET;
+      other languages as repos require. Execution agent: take Kaneo tasks assigned
+      to you (devJunior). action-marked tasks go to Cursor CLI; others you do yourself.
+      Dual workspaces: AIDeskLab / AIDesk.dev. After work: verify and update Kaneo.
+      Russian by default; keep English technical terms as-is. Be brief, fact-based;
+      never fabricate.
 
       '
 terminal:
@@ -288,6 +287,7 @@ known_builtin_toolsets:
 onboarding:
   seen:
     profile_build_offered: true
+    busy_input_prompt: true
 skills:
   external_dirs:
     - /opt/aidesklab/agent-skills
@@ -302,3 +302,7 @@ mcp_servers:
     headers:
       Authorization: Bearer ${MCP_KANEO_API_KEY}
     enabled: true
+telegram:
+  require_mention: true
+  exclusive_bot_mentions: true
+  mention_patterns: []

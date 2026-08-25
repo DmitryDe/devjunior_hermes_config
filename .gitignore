@@ -84,3 +84,6 @@ state/
 .env.save
 skills/.curator_backups/
 skills/git/
+checkpoints/store/objects/
+.curator_backups/
+scripts/__pycache__/
