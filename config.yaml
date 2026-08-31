@@ -7,7 +7,8 @@ agent:
   gateway_timeout: 3600
   build_wait_timeout: 600
   api_max_retries: 2
-  tool_use_enforcement: auto
+  tool_use_enforcement: true
+  execution_guidance: true
   intent_ack_continuation: auto
   task_completion_guidance: true
   parallel_tool_call_guidance: true
@@ -70,12 +71,12 @@ tool_loop_guardrails:
   hard_stop_enabled: true
   warn_after:
     exact_failure: 2
-    same_tool_failure: 2
+    same_tool_failure: 3
     idempotent_no_progress: 2
   hard_stop_after:
-    exact_failure: 4
-    same_tool_failure: 5
-    idempotent_no_progress: 4
+    exact_failure: 5
+    same_tool_failure: 8
+    idempotent_no_progress: 5
   loop_caps:
     max_web_searches: 50
     max_subagents: 10
@@ -139,6 +140,10 @@ delegation:
   subagent_auto_approve: false
 computer_use:
   backend: cua
+cron:
+  preflight: true
+  model_drift_guard: true
+  allow_agent_scheduling: false
 approvals:
   mode: smart
   timeout: 300
@@ -291,6 +296,8 @@ onboarding:
 skills:
   external_dirs:
     - /opt/aidesklab/agent-skills
+    - C:/repos/devjunior_hermes_config/skills
+  project_discovery: false
   template_vars: true
   inline_shell: false
   inline_shell_timeout: 10
