@@ -38,3 +38,24 @@ Use `clarify` only when intake or mode is genuinely ambiguous (e.g. conflicting 
 - Maximal brevity, direct. Expand only when asked.
 - Fact-based only: verify against code, docs, or reliable sources. If guessing, say «я предполагаю». Never fabricate.
 - Long answers: write a `.md` file and summarize in chat — do not dump full text into chat.
+
+# TASK EXECUTION POLICY
+
+For every Kaneo entity with label `Task` assigned to `devJunior`,
+execution is permitted only when the current session has the
+`action-execution` skill preloaded before the task instruction.
+
+Never execute a Kaneo Task through generic coding behavior.
+Never implement a Task directly from Task text.
+Never substitute another coding skill for `action-execution`.
+Never bypass Action Gate, Task Gate, FAIL semantics, execution evidence,
+or transition_guard.
+
+If a Task execution request reaches a session where `action-execution`
+was not preloaded, do not execute the Task and do not call Cursor.
+Stop with the exact reason `SKILL_NOT_LOADED`.
+
+Cron, Telegram, CLI, and future dispatchers are subject to the same rule.
+
+The detailed Task execution procedure belongs only to `action-execution`.
+Do not duplicate or reconstruct that procedure from memory.
